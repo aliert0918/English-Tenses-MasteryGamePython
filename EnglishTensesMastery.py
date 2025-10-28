@@ -944,6 +944,24 @@ class TensesGame:
     def show_tense_selection(self):
         """Tampilkan menu pemilihan tenses"""
         self.clear_window()
+
+    # Header frame untuk back button dan title
+        header_frame = tk.Frame(self.root, bg='#2C3E50')
+        header_frame.pack(fill='x', padx=20, pady=10)
+    
+    # Back button di kiri
+        back_btn = tk.Button(
+            header_frame,
+            text="← Back",
+            font=('Arial', 12, 'bold'),
+            bg='#E74C3C',
+            fg='white',
+            command=self.show_main_menu,
+            cursor='hand2',
+            padx=15,
+            pady=5
+        )
+        back_btn.pack(side='left')
         
         # Title
         title_label = tk.Label(
@@ -1447,3 +1465,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
