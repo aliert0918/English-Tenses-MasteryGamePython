@@ -6,7 +6,7 @@ class TensesGame:
     def __init__(self, root):
         self.root = root
         self.root.title("English Tenses Master")
-        self.root.geometry("900x700")
+        self.root.geometry("1280x720")
         self.root.configure(bg='#2C3E50')
         
         # Variables
@@ -945,11 +945,11 @@ class TensesGame:
         """Tampilkan menu pemilihan tenses"""
         self.clear_window()
 
-    # Header frame untuk back button dan title
+        # Header frame untuk back button dan title
         header_frame = tk.Frame(self.root, bg='#2C3E50')
         header_frame.pack(fill='x', padx=20, pady=10)
-    
-    # Back button di kiri
+        
+        # Back button di kiri
         back_btn = tk.Button(
             header_frame,
             text="← Back",
@@ -971,11 +971,11 @@ class TensesGame:
             fg='#ECF0F1',
             bg='#2C3E50'
         )
-        title_label.pack(pady=30)
+        title_label.pack(pady=20)
         
-        # Main container
+        # Main container dengan scrollable canvas jika perlu
         main_frame = tk.Frame(self.root, bg='#2C3E50')
-        main_frame.pack(expand=True, fill='both', padx=50, pady=20)
+        main_frame.pack(expand=True, fill='both', padx=50, pady=10)
         
         # Tense categories
         categories = {
@@ -997,7 +997,7 @@ class TensesGame:
         }
         
         for category, info in categories.items():
-            # Category frame
+            # Category frame dengan height yang cukup
             cat_frame = tk.LabelFrame(
                 main_frame,
                 text=category,
@@ -1007,19 +1007,25 @@ class TensesGame:
                 padx=20,
                 pady=15
             )
-            cat_frame.pack(fill='x', pady=15)
+            cat_frame.pack(fill='x', pady=10)
             
-            # Tense buttons
+            # Tense buttons container
             btn_frame = tk.Frame(cat_frame, bg=info['color'])
-            btn_frame.pack()
+            btn_frame.pack(pady=5)
             
+            # Buat 2 rows untuk 4 buttons (2x2 grid)
+            row1 = tk.Frame(btn_frame, bg=info['color'])
+            row1.pack(pady=5)
+            
+            row2 = tk.Frame(btn_frame, bg=info['color'])
+            row2.pack(pady=5)
+            
+            # Place buttons in grid
             for i, tense in enumerate(info['tenses']):
-                if i % 2 == 0:
-                    row_frame = tk.Frame(btn_frame, bg=info['color'])
-                    row_frame.pack()
+                parent_row = row1 if i < 2 else row2
                 
                 tense_btn = tk.Button(
-                    row_frame,
+                    parent_row,
                     text=tense,
                     font=('Arial', 12),
                     bg='white',
@@ -1027,9 +1033,11 @@ class TensesGame:
                     width=25,
                     height=2,
                     command=lambda t=tense: self.start_quiz(t),
-                    cursor='hand2'
+                    cursor='hand2',
+                    relief='raised',
+                    bd=2
                 )
-                tense_btn.pack(side='left', padx=5, pady=5)
+                tense_btn.pack(side='left', padx=5)
         
         # Back button
         back_btn = tk.Button(
@@ -1039,9 +1047,10 @@ class TensesGame:
             bg='#95A5A6',
             fg='white',
             command=self.show_main_menu,
-            cursor='hand2'
+            cursor='hand2',
+            pady=8
         )
-        back_btn.pack(pady=20)
+        back_btn.pack(pady=15)
     
     def start_quiz(self, tense):
         """Mulai quiz untuk tense yang dipilih"""
@@ -1465,4 +1474,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
